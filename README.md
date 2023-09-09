@@ -46,3 +46,38 @@ cd tests
 pytest --junitxml="BUILD_${BUILD_NUMBER}_results.xml"
 ```
 depois clique no botão "add post-build action" e escolha Publish JUnit test result report. Vai abrir os campos Post-build Action. Em Test report XMLs digite `tests/results/*.xml`, em Health report amplification factor, mantenha como 1.0 e em Allow empty results marque a opção.
+
+## Usando o skip e o xfail
+```
+from pytest import mark
+@mark.skip
+
+Opcional
+@mark.skip(reason="broken by deploy somenumber")
+
+Para imprimir com detalhes o skip use o parâmetro -rs, exemplo:
+pytest --env dev -v -rs
+
+O Xfail é quando você espera que o código retorne uma falha
+pytest --env dev -v -rx
+
+Para usar os dois ao mesmo tempo
+pytest tests\xfail\test_skip.py -v -rxs
+```
+
+## Informando parâmetros para o mark
+```
+from pytest import mark
+
+@mark.parametrize("tv_brand", [
+    ("Samsung"),
+    ("Sony"),
+    ("Vizio"),
+])
+def test_television_turns_on(tv_brand):
+    print(f"{tv_brand} turns on as expected")
+
+Comando
+pytest tests\test_television\test_television.py -v -s
+```
+
