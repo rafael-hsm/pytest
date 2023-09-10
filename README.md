@@ -81,3 +81,19 @@ Comando
 pytest tests\test_television\test_television.py -v -s
 ```
 
+## Pytest Paralellel VS Concurrent
+
+Instale o plugin
+```
+pip install pytest-xdist
+```
+
+Depois disso é possível passar o número de threats que iremos utilizar por exemplo
+```
+pytest -v -s -n4
+
+ou 
+
+pytest -v -s -nauto
+```
+
